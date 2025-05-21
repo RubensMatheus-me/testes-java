@@ -24,4 +24,31 @@ public class CalendarServiceTest {
         String result = service.getCalendar("2", "2020");
         assertEquals("Calendário de fevereiro de 2020", result);
     }
+
+    //invalid tests
+
+    @Test(expected = java.time.DateTimeException.class)
+    public void testMonthZero() {
+        service.getCalendar("0", "2024");
+    }
+
+    @Test(expected = java.time.DateTimeException.class)
+    public void testInvalidMonth() {
+        service.getCalendar("13", "2020");
+    }
+
+    @Test(expected = NumberFormatException.class)
+    public void testNoNumericYear() {
+        service.getCalendar("5", "dois mil e vinte");
+    }
+
+    @Test(expected = NumberFormatException.class)
+    public void testEmptyYear() {
+        service.getCalendar("5", "");
+    }
+
+    @Test(expected = NumberFormatException.class)
+    public void testEmptyMonth() {
+        service.getCalendar("", "2025");
+    }
 }
